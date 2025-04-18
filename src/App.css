@@ -1,0 +1,271 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0rem;
+  text-align: center;
+  font-family: "Iansui", cursive;
+  color: white;
+}
+.all-p-name{
+  display: flex;
+  height: 90vh;
+  margin-top: 10vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+.p-name{
+  margin-top: 10px;
+  padding: 20px;
+  height: 240px;
+  overflow:hidden
+}
+.p-name div{
+  width: 100%;
+  z-index: 2;
+  height: 100%;
+  border-radius: 10%;
+  background: rgb(0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.bg-screen{
+  height: 80px;
+  width: 100%;
+  position: fixed;
+  background: rgb(0, 0, 0);
+  top: 0px;
+  border-bottom: 2px  blur(15%);
+  z-index: 3;
+}
+.new-p{
+  margin-top: 20px;
+  font-family: "Iansui", cursive;
+}
+.data-scroll{
+  height: 90vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.project-hld{
+  z-index: 3;
+  width: 100%;
+  color: rgb(255, 167, 4);
+  font-size: 30px;
+  font-style: oblique;
+  font-family: "Iansui", cursive;
+  font-weight: 600;
+  position: relative;
+  top: 20%;
+  text-transform:uppercase;
+
+}
+.newproject-on{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  height: 360px;
+  z-index: 2;
+  background-color: black;
+  transition: 0.5s;
+  border-radius: 20px;
+}
+.newproject-off{
+  position: absolute;
+  top: 22.5%;
+  left: 13.5%;
+  height: 180px;
+  width: 200px;
+  z-index: -1;
+  opacity: 0;
+}
+.poject-place{
+  text-align: start;
+  font-weight: 300;
+  font-family: "Iansui", cursive;
+}
+.new-project-div{
+  display: flex;
+  justify-content: space-between;
+  
+}
+.poject-place-new{
+  text-align: start;
+  font-weight: 600;
+  font-family: "Iansui", cursive;
+  margin-top: 30px;
+}
+.input-p-name{
+  width: 100%;
+  height: 40px;
+  background: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid white;
+  color: white;
+  font-size: 25px;
+  font-family: "Iansui", cursive;
+}
+.input-p-name:focus{
+  border: none;
+  outline: none;
+  border-bottom: 1px solid white;
+}
+.btn-add-p{
+  height: 50px;
+  font-weight: 600;
+  font-size: 20px;
+  border-radius: 10px;
+  background: rgb(250, 165, 8);
+  margin-top: 10%;
+  margin-left: 80%;
+}
+
+.project-all-data-on{
+  background-color: black;
+  position: absolute;
+  top:0%;
+  width: 100%;
+  height: 100vh;
+  transition: 0.5s;
+  overflow: hidden;
+}
+.project-all-data-off{
+  background-color: black;
+  position: absolute;
+  top:-100%;
+  width: 100%;
+  height: 100vh;
+  transition: 0.5s;
+}
+
+.journal-input{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.journal-view{
+  height: 100vh;
+  padding-top: 17vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.input-row{
+  height: 40px;
+  overflow: hidden;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.input-row-sub input{
+  width: 100%;
+  height: 40px;
+  padding-left: 15px;
+  background: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid white;
+  color: white;
+  font-size: 24px;
+}
+.next-btn{
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(0, 0, 0);
+  font-weight: 500;
+  background: orange;
+  border-radius: 15px;
+}
+
+.navbtn{
+  height: 50px;
+  border-radius: 15px;
+  background-color: orange;
+  color: black;
+}
+.wellcome{
+  margin-top: 130px;
+  color: black;
+  font-weight: 700;
+}
+.ledger-box{
+  width: 2;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 40px;
+  padding-top: 15vh;
+}
+.name-box{
+  min-height: 40px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.name-l{
+  min-height: 50px;
+  width: 100%;
+  border-radius: 15px;
+  text-align: start;
+  border:2px solid white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.led-name{
+    color: white;
+    font-size: 25px;
+    font-style: oblique;
+    font-family: "Iansui", cursive;
+    font-weight: 600;
+    text-transform:capitalize;
+    text-align: start;
+    display: flex;
+    align-items: center;
+}
+.single-ledger{
+  border: 1px solid white;
+  border-radius:10px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.single-ledger-view{
+  height: 53vh;
+  position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.single-ledger-bottom{
+  border: 1px solid white;
+  border-radius:10px;
+  position: relative;
+  bottom: 0px;
+}
+.box-balance{
+  height: 50px;
+  border-radius: 15px;
+  border: 2px solid orange ;
+}
+.icon-box{
+  height: 50px;
+}
+.icon{
+  color: orange;
+  display: flex;
+  justify-content: space-around;
+  height: 100%;
+}
+.entry-names{
+  text-transform:capitalize;
+}

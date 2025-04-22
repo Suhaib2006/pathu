@@ -7,8 +7,6 @@ import Bar from '../Bar/Bar'
 import { useLocation } from 'react-router-dom'
 function ProjectView() {
   const [codeid,setcodeid]=useState("")
-  const [SUMDR,setSUMDR]=useState(0)
-  const [SUMCR,setSUMCR]=useState(0)
   const inputRefsone = useRef([]);
   const inputRefstwo = useRef([]);
   const [inputarrayDr,setinputarrayDr]=useState([{Name:"",Amount:""},{Name:"",Amount:""},{Name:"",Amount:""},{Name:"",Amount:""}])
@@ -40,7 +38,8 @@ function ProjectView() {
               ...doc.data()
           })); 
           fetchedData.forEach( async(element)=> {
-            const journalDr =await getDocs(collection(db,Email,Projectname,"journal",element.Codeid,"Entry"))
+            const ordereachentry=collection(db,Email,Projectname,"journal",element.Codeid,"Entry")
+            const journalDr =await getDocs(query(ordereachentry, orderBy("Ind","asc")))
             const fetchedDataone = journalDr.docs.map(doc => ({
               id: doc.id,
               ...doc.data()
@@ -56,13 +55,10 @@ function ProjectView() {
             ...doc.data()
           }));
           setEntry(prevEntry=>[fetchedDataone,...prevEntry])
+          
         }
         setcodeid("")
-        if(SUMCR!==SUMDR){
-          alert("Dr side amount and Cr side amount are different")
-        }
-        setSUMDR(0)
-        setSUMCR(0)
+        
       } catch (error) {
           console.error("Error fetching data:", error);
       }
@@ -91,7 +87,6 @@ function ProjectView() {
           }
         addDoc(drRef2,datobj)
         addDoc(drRef1,datobj)
-        setSUMDR(SUMDR+parseFloat(element.Amount,10))
       }
     });
         inputarrayCr.forEach((element,index) => {
@@ -108,7 +103,6 @@ function ProjectView() {
             }
             addDoc(drRef2,dataobj)
             addDoc(drRef1,dataobj)
-            setSUMCR(SUMCR+parseFloat(element.Amount,10))
           }
         });
 
@@ -166,7 +160,7 @@ function ProjectView() {
         }
       })
       const querySnapshot =collection(db,Email,Projectname,"Code");
-      const q = await getDocs(query(querySnapshot, orderBy("Date","desc")));
+      const q = await getDocs(query(querySnapshot, orderBy("Date","asc")));
       const fetchedData = q.docs.map(doc => ({
         id: doc.id,
         ...doc.data()

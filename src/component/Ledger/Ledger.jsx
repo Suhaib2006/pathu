@@ -10,7 +10,7 @@ const [DrSum,setDrSum]=useState(0)
 const [CrSum,setCrSum]=useState(0)
 const [Diff,setDiff]=useState(0)
 const [state,setstate]=useState("")
-const [LedgerName,setLedgerName]=useState("CASH")
+const [LedgerName,setLedgerName]=useState("cash")
 localStorage.setItem("valueA","ledger")
 useEffect(()=>{
   const names=[...new Set(LedgerData.map(item=>item.Name))]

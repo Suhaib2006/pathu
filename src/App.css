@@ -34,7 +34,7 @@
 }
 .bg-screen{
   height: 80px;
-  width: 100%;
+  width: 102%;
   position: fixed;
   background: rgb(0, 0, 0);
   top: 0px;
@@ -187,7 +187,7 @@
 }
 
 .navbtn{
-  height: 50px;
+  height: 45px;
   border-radius: 15px;
   background-color: orange;
   color: black;
@@ -221,6 +221,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-transform: capitalize;
+  transition: 0.4s;
+}
+.l-bor{
+  background: white;
+  color: black;
+  transition: 0.4s;
+  font-weight: 700;
+  transform: scale(1.06);
 }
 .led-name{
     color: white;
@@ -268,4 +277,31 @@
 }
 .entry-names{
   text-transform:capitalize;
+}
+/*trial*/
+.screen-trial{
+  height: 100vh;
+  overflow: hidden;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.scroll-trial{
+  margin-top: 15vh;
+  border-bottom: 2px solid white;
+  text-align: start;
+}
+.trial-hed{
+  letter-spacing: 2px;
+  font-size: 35px;
+  text-align: center;
+}
+.real-scroll{
+  height: 60vh;
+  text-align: start;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.scroll-bottom{
+  border-top: 2px solid white;
+  text-align: start;
 }

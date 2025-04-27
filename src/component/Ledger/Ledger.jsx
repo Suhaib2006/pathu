@@ -1,9 +1,11 @@
 import React, { useEffect,useState } from 'react'
 import { useLocation } from 'react-router-dom';
+import app from '../firebase';
 import Bar from '../Bar/Bar';
+import { getFirestore,collection, addDoc,orderBy,getDocs,query } from 'firebase/firestore';
 function Ledger() {
 const loction = useLocation()
-const {LedgerData,NameData}=loction.state || {};
+const {LedgerData,NameData,user}=loction.state || {};
 const [unique,setunique]=useState([])
 const [normal,setnormal]=useState([])
 const [DrSum,setDrSum]=useState(0)
@@ -11,8 +13,29 @@ const [CrSum,setCrSum]=useState(0)
 const [Diff,setDiff]=useState(0)
 const [state,setstate]=useState("")
 const [LedgerName,setLedgerName]=useState("cash")
+const db=getFirestore(app)
 localStorage.setItem("valueA","ledger")
+const [OnOff,setOnOff]=useState(false)
+const [change,setchange]=useState(false)
+const [TrialData,setTrialData]=useState([])
 useEffect(()=>{
+  const trialdata=async()=>{
+    const querySnapshot =collection(db,user,NameData,"trial");
+    const order= await getDocs(query(querySnapshot, orderBy("Date","asc")));
+    const fetchedData = order.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    })); 
+    setTrialData(fetchedData)
+    fetchedData.forEach(element => {
+      if(element.Name===LedgerName){
+        setOnOff(true)
+        if(element.Amount!==Diff)setchange(true)
+      }
+    });
+  }
+  trialdata()
+  
   const names=[...new Set(LedgerData.map(item=>item.Name))]
   setunique(names)
   LedgerData.forEach(element => {
@@ -29,11 +52,11 @@ useEffect(()=>{
 useEffect(()=>{
   if (DrSum||CrSum) {
     if(DrSum>=CrSum){
-      setDiff(Math.round(DrSum-CrSum))
+      setDiff(DrSum-CrSum)
       setstate("DR")
     }
     else if(CrSum>=DrSum){
-      setDiff(Math.round(CrSum-DrSum))
+      setDiff(CrSum-DrSum)
       setstate("CR")
     }else{
       setDiff(0)
@@ -41,16 +64,36 @@ useEffect(()=>{
     }
   }
 },[DrSum,CrSum])
+
+//trail data set
+const AddTrialData=()=>{
+  if(!OnOff){
+    try{
+      const drRef=collection(db,user,NameData,"trial")
+      addDoc(drRef,{
+        Name:LedgerName,
+        Amount:Diff,
+        state:state,
+        Date: new Date()
+      })
+      setOnOff(true)
+    }catch(e){
+      alert(e)
+    }
+  }else{
+    alert("exist")
+  }
+}
   return (
     <div>
-      <Bar  Username="" Active="true" Name={NameData} Locate="journal" />
+      <Bar  Username="" Active="true" Name={NameData} Ledgerzero={LedgerData} user={user} Trial={TrialData} />
       <div className="row col-12">
         <div className="ledger-box col-md-6 col-12">
         <div className='row col-12'>
         {
           unique.map((element,index)=>(
               <div className="col-md-6 col-12 name-box" key={index}>
-                <div className="name-l row">
+                <div className={element!==LedgerName?"name-l row":"name-l row l-bor"}>
                   <h4 className=' col-10'>{element}</h4>
                   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" style={{padding:"0px"}} className=" col-2 bi bi-arrow-right-circle-fill" viewBox="0 0 16 16" onClick={()=>{
                     
@@ -61,6 +104,7 @@ useEffect(()=>{
                       setDiff(0)
                       setstate("")
                       setLedgerName(element);
+                      setOnOff(false)
                     }
                   }}>
                     <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
@@ -73,8 +117,8 @@ useEffect(()=>{
         </div>
         <div className="ledger-box col-12 col-md-6" style={{overflow:"hidden"}}>
           <div className=" row">
-            <h3 className='led-name col-8'>{LedgerName} A/C</h3>
-            <div className="col-4 box-balance"><h3>{Diff} {state} </h3></div>
+            <h3 className='led-name col-7'>{LedgerName}</h3>
+            <div className="col-5 box-balance"><h4 className='mt-2'>{Diff} {state} </h4></div>
           </div>
           <div className="row mt-4 single-ledger">
             <div className="col-1"><h4>NO</h4></div>
@@ -101,7 +145,7 @@ useEffect(()=>{
             </div>
           </div>
 
-          <button className="navbtn col-12 " onClick={()=>{navigate(-1)}}><h3>ADD TRIALBALANCE</h3> </button>
+          <button className="navbtn col-12 " onClick={AddTrialData}><h3 className='mt-1'><b>ADD DATA</b></h3> </button>
         </div>
       </div>
     </div>

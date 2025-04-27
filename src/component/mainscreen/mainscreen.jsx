@@ -1,9 +1,11 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 import Allproject from '../pname/Pname';
-function openp() {
+function First() {
   const Location =useLocation()
   const {Email,Password}=Location.state || {};
+  localStorage.setItem("Email",Email)
+  localStorage.setItem("Password",Password)
   return (
     <>
       {(Email==null)? <div><h3> Data is not founded</h3> </div>: <Allproject Email={Email} Password={Password} /> }
@@ -11,4 +13,4 @@ function openp() {
   )
 }
 
-export default openp
+export default First

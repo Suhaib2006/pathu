@@ -6,6 +6,8 @@ import { collection,addDoc,getDocs,query,orderBy} from 'firebase/firestore'
 import Bar from '../Bar/Bar'
 import { useLocation } from 'react-router-dom'
 function ProjectView() {
+  const loction = useLocation()
+  const {Email,Projectname}=loction.state||{};
   const [codeid,setcodeid]=useState("")
   const inputRefsone = useRef([]);
   const inputRefstwo = useRef([]);
@@ -15,21 +17,12 @@ function ProjectView() {
   const [controlmenu,setcontrolmenu]=useState(true)
   const [ones,setones]=useState(true)
   const [Ledger,setLedger]=useState([])
+  const [TrialData,setTrialData]=useState([])
   const [Entry,setEntry]=useState([])
-  const loction = useLocation()
   localStorage.setItem("valueA","journal")
-  const {Email,Projectname}=loction.state||{};
   useEffect(()=>{
     const fetchData = async () => {
-      try {         
-          const querySnapshottwo = collection(db,Email,Projectname,"ledger");
-          const qtwo = await getDocs(query(querySnapshottwo, orderBy("Date", "asc")));
-          const fetchedDatatwo = qtwo.docs.map(doc => ({
-              id: doc.id,
-              ...doc.data()
-          }));
-          setLedger(fetchedDatatwo)
-
+      try {   
         if (ones) {
           const querySnapshot =collection(db,Email,Projectname,"Code");
           const q = await getDocs(query(querySnapshot, orderBy("Date","desc")));
@@ -58,7 +51,22 @@ function ProjectView() {
           
         }
         setcodeid("")
-        
+
+          const querySnapshottwo = collection(db,Email,Projectname,"ledger");
+          const qtwo = await getDocs(query(querySnapshottwo, orderBy("Date", "asc")));
+          const fetchedDatatwo = qtwo.docs.map(doc => ({
+              id: doc.id,
+              ...doc.data()
+          }));
+          setLedger(fetchedDatatwo)
+
+          const querySnapshotthree = collection(db,Email,Projectname,"trial");
+          const qthree = await getDocs(query(querySnapshotthree, orderBy("Date", "asc")));
+          const fetchedDatathree = qthree.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+          setTrialData(fetchedDatathree)
       } catch (error) {
           console.error("Error fetching data:", error);
       }
@@ -181,12 +189,12 @@ function ProjectView() {
   }
   //data updating
   const EditData=(JournalEntry)=>{
-    alert("EditData")
+    alert(JournalEntry.id)
   }
   return (
     <div className='project-all-data-on'>
         <div className='col-12 project-bar'>
-           <Bar  Username="" Active="true" Name={Projectname} Ledgerzero={Ledger}  />
+           <Bar  Username="" Active="true" user={Email} Name={Projectname} Ledgerzero={Ledger} Trial={TrialData} />
         </div>
           <div className="row">
             <div className="col-md-6 col-12  journal journal-input">
@@ -298,7 +306,8 @@ function ProjectView() {
             </div>:
             <div className="col-md-6 col-12 journal journal-view"> 
               <h4 className='project-hld mb-2' style={{color:"white"}}>Hello  <label style={{color:"orange"}}>{Email}</label></h4>
-              <h4 className='project-hld' style={{color:"white"}}>Wellcome to your <br /> <label style={{color:"orange"}}>{Projectname}</label> project</h4>
+              <h4 className='project-hld mb-2' style={{color:"gold"}}>Wellcome to your</h4>
+              <h4 className='project-hld mb-2'>  <label style={{color:"orange"}}>{Projectname}</label> project</h4>
             </div>
             }
           

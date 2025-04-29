@@ -47,6 +47,9 @@ function ProjectView() {
             id: doc.id,
             ...doc.data()
           }));
+          //trialdelete
+          AddData(fetchedDataone)
+          //end
           setEntry(prevEntry=>[fetchedDataone,...prevEntry])
           
         }
@@ -178,6 +181,7 @@ function ProjectView() {
           deleteDoc(doc(db,Email,Projectname,"Code",element.id));
         }
       })
+      AddData(JournalEntry)
       alert("deleted successfully");
       //delete
       const fill=Entry.filter(arr=>JSON.stringify(arr)!==JSON.stringify(JournalEntry))
@@ -186,6 +190,17 @@ function ProjectView() {
     }catch(e){
       console.error("journal:-",e);
     }
+  }
+  //trial-add-data-dutton
+  //trial data deleted
+  const AddData=(Arr)=>{
+    TrialData.forEach((item)=>{
+      Arr.forEach(deleteitem => {
+        if (item.Name===deleteitem.Name) {
+          deleteDoc(doc(db,Email,Projectname,"trial",item.id));          
+        }
+      });
+    })
   }
   //data updating
   const EditData=(JournalEntry)=>{
@@ -199,8 +214,7 @@ function ProjectView() {
           <div className="row">
             <div className="col-md-6 col-12  journal journal-input">
               <h3 className='mt-5 mb-5'></h3>
-              <div className="row col-12" style={{display:"contents"}} onClick={()=>{console.log(Entry);
-              }}>
+              <div className="row col-12" style={{display:"contents"}}>
               {
                 inputarrayDr.map((element,index)=>(
                   <div className="col-12 col-md-10 input-row mt-1" key={index}>

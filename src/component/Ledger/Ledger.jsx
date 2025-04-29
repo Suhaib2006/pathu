@@ -2,12 +2,12 @@ import React, { useEffect,useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import app from '../firebase';
 import Bar from '../Bar/Bar';
-import { getFirestore,collection, addDoc,orderBy,getDocs,query } from 'firebase/firestore';
+import { getFirestore,collection, addDoc,orderBy,getDocs,query,updateDoc,doc } from 'firebase/firestore';
 function Ledger() {
 const loction = useLocation()
 const {LedgerData,NameData,user}=loction.state || {};
 const [unique,setunique]=useState([])
-const [normal,setnormal]=useState([])
+const [normal,setnormal]=useState([{}])
 const [DrSum,setDrSum]=useState(0)
 const [CrSum,setCrSum]=useState(0)
 const [Diff,setDiff]=useState(0)
@@ -16,7 +16,6 @@ const [LedgerName,setLedgerName]=useState("cash")
 const db=getFirestore(app)
 localStorage.setItem("valueA","ledger")
 const [OnOff,setOnOff]=useState(false)
-const [change,setchange]=useState(false)
 const [TrialData,setTrialData]=useState([])
 useEffect(()=>{
   const trialdata=async()=>{
@@ -28,10 +27,7 @@ useEffect(()=>{
     })); 
     setTrialData(fetchedData)
     fetchedData.forEach(element => {
-      if(element.Name===LedgerName){
-        setOnOff(true)
-        if(element.Amount!==Diff)setchange(true)
-      }
+      if(element.Name===LedgerName)setOnOff(true)
     });
   }
   trialdata()
@@ -63,27 +59,44 @@ useEffect(()=>{
       setstate("")
     }
   }
+
 },[DrSum,CrSum])
 
 //trail data set
-const AddTrialData=()=>{
-  if(!OnOff){
+const AddTrialData=async()=>{
+  
     try{
-      const drRef=collection(db,user,NameData,"trial")
-      addDoc(drRef,{
-        Name:LedgerName,
-        Amount:Diff,
-        state:state,
-        Date: new Date()
-      })
-      setOnOff(true)
+      if(!OnOff){
+        const drRef=collection(db,user,NameData,"trial")
+        addDoc(drRef,{
+          Name:LedgerName,
+          Amount:Diff,
+          state:state,
+          Date: new Date()
+        })
+        setOnOff(true)
+      }else{
+        update(LedgerName)
+      }
     }catch(e){
       alert(e)
     }
-  }else{
-    alert("exist")
-  }
+  
 }
+//trail data udate
+const update=async(data)=>{
+  TrialData.forEach(async(element) => {
+    if(element.Name===data){
+      const docRef=doc(db,user,NameData,"trial",element.id)
+      updateDoc(docRef, {
+        Amount:Diff , // field you want to update
+      });
+     alert("update")
+    }
+  });
+}
+    
+
   return (
     <div>
       <Bar  Username="" Active="true" Name={NameData} Ledgerzero={LedgerData} user={user} Trial={TrialData} />
@@ -93,7 +106,18 @@ const AddTrialData=()=>{
         {
           unique.map((element,index)=>(
               <div className="col-md-6 col-12 name-box" key={index}>
-                <div className={element!==LedgerName?"name-l row":"name-l row l-bor"}>
+                <div className={element!==LedgerName?"name-l row":"name-l row l-bor"} onClick={()=>{
+                    
+                    if(LedgerName!==element){
+                      setnormal([])
+                      setDrSum(0)
+                      setCrSum(0)
+                      setDiff(0)
+                      setstate("")
+                      setLedgerName(element);
+                      setOnOff(false)
+                    }
+                  }}>
                   <h4 className=' col-10'>{element}</h4>
                   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" style={{padding:"0px"}} className=" col-2 bi bi-arrow-right-circle-fill" viewBox="0 0 16 16" onClick={()=>{
                     
@@ -115,7 +139,7 @@ const AddTrialData=()=>{
         }
         </div>
         </div>
-        <div className="ledger-box col-12 col-md-6" style={{overflow:"hidden"}}>
+        <div className="ledger-box col-12 col-md-6" style={{overflow:"hidden"}} >
           <div className=" row">
             <h3 className='led-name col-7'>{LedgerName}</h3>
             <div className="col-5 box-balance"><h4 className='mt-2'>{Diff} {state} </h4></div>
@@ -145,7 +169,7 @@ const AddTrialData=()=>{
             </div>
           </div>
 
-          <button className="navbtn col-12 " onClick={AddTrialData}><h3 className='mt-1'><b>ADD DATA</b></h3> </button>
+          <button className="navbtn col-12 " onClick={AddTrialData} onKeyDown={(e) =>{ if(e.key === "Enter") AddTrialData()}}><h3 className='mt-1'><b>{!OnOff?"ADD DATA":"UPDATE DATA"}</b></h3> </button>
         </div>
       </div>
     </div>

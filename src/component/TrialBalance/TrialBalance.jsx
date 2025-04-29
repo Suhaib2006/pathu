@@ -9,8 +9,7 @@ function TrialBalance() {
     localStorage.setItem("valueA","TrialBalance")
     useEffect(()=>{
       Trial.forEach(element => {
-        const Num=parseFloat(element.Amount)
-        element.state==="DR"?setDrSum(prevDrSum=>prevDrSum+Num):setCrSum(prevCrSum=>prevCrSum+Num)
+        element.state==="DR"?setDrSum(prevDrSum=>prevDrSum+element.Amount):setCrSum(prevCrSum=>prevCrSum+element.Amount)
       });
     },[Trial])
   return ( 

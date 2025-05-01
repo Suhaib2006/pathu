@@ -22,39 +22,7 @@ function ProjectView() {
   localStorage.setItem("valueA","journal")
   useEffect(()=>{
     const fetchData = async () => {
-      try {   
-        if (ones) {
-          const querySnapshot =collection(db,Email,Projectname,"Code");
-          const q = await getDocs(query(querySnapshot, orderBy("Date","desc")));
-          const fetchedData = q.docs.map(doc => ({
-              id: doc.id,
-              ...doc.data()
-          })); 
-          fetchedData.forEach( async(element)=> {
-            const ordereachentry=collection(db,Email,Projectname,"journal",element.Codeid,"Entry")
-            const journalDr =await getDocs(query(ordereachentry, orderBy("Ind","asc")))
-            const fetchedDataone = journalDr.docs.map(doc => ({
-              id: doc.id,
-              ...doc.data()
-            }));
-            setEntry(prevEntry=>[...prevEntry,fetchedDataone])
-          });
-          setones(!ones)
-        }
-        else if(!ones&&codeid){
-          const journalDr =await getDocs(collection(db,Email,Projectname,"journal",codeid,"Entry"))
-          const fetchedDataone = journalDr.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          }));
-          //trialdelete
-          AddData(fetchedDataone)
-          //end
-          setEntry(prevEntry=>[fetchedDataone,...prevEntry])
-          
-        }
-        setcodeid("")
-
+      try {  
           const querySnapshottwo = collection(db,Email,Projectname,"ledger");
           const qtwo = await getDocs(query(querySnapshottwo, orderBy("Date", "asc")));
           const fetchedDatatwo = qtwo.docs.map(doc => ({
@@ -63,6 +31,39 @@ function ProjectView() {
           }));
           setLedger(fetchedDatatwo)
 
+          //jounal
+          if (ones) {
+            const querySnapshot =collection(db,Email,Projectname,"Code");
+            const q = await getDocs(query(querySnapshot, orderBy("Date","desc")));
+            const fetchedData = q.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            })); 
+            fetchedData.forEach( async(element)=> {
+              const ordereachentry=collection(db,Email,Projectname,"journal",element.Codeid,"Entry")
+              const journalDr =await getDocs(query(ordereachentry, orderBy("Ind","asc")))
+              const fetchedDataone = journalDr.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+              }));
+              setEntry(prevEntry=>[...prevEntry,fetchedDataone])
+            });
+            setones(!ones)
+          }
+          else if(!ones&&codeid){
+            const journalDr =await getDocs(collection(db,Email,Projectname,"journal",codeid,"Entry"))
+            const fetchedDataone = journalDr.docs.map(doc => ({
+              id: doc.id,
+              ...doc.data()
+            }));
+            //trialdelete
+            AddData(fetchedDataone)
+            //end
+            setEntry(prevEntry=>[fetchedDataone,...prevEntry])
+            
+          }
+          setcodeid("") 
+          //trial data pass
           const querySnapshotthree = collection(db,Email,Projectname,"trial");
           const qthree = await getDocs(query(querySnapshotthree, orderBy("Date", "asc")));
           const fetchedDatathree = qthree.docs.map(doc => ({

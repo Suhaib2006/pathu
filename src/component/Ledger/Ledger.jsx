@@ -6,7 +6,7 @@ import { getFirestore,collection, addDoc,orderBy,getDocs,query,updateDoc,doc } f
 function Ledger() {
 const loction = useLocation()
 const {LedgerData,NameData,user}=loction.state || {};
-const [unique,setunique]=useState([])
+const [uniquenames,setuniquenames]=useState([])
 const [normal,setnormal]=useState([{}])
 const [DrSum,setDrSum]=useState(0)
 const [CrSum,setCrSum]=useState(0)
@@ -33,7 +33,7 @@ useEffect(()=>{
   trialdata()
   
   const names=[...new Set(LedgerData.map(item=>item.Name))]
-  setunique(names)
+  setuniquenames(names)
   LedgerData.forEach(element => {
     if (element.Name===LedgerName) {
       setnormal(prevnormal=>[...prevnormal,element])
@@ -44,6 +44,8 @@ useEffect(()=>{
       }
     }
   });
+
+  existance(LedgerName)
 },[LedgerName])
 useEffect(()=>{
   if (DrSum||CrSum) {
@@ -59,8 +61,8 @@ useEffect(()=>{
       setstate("")
     }
   }
-
 },[DrSum,CrSum])
+
 
 //trail data set
 const AddTrialData=async()=>{
@@ -96,6 +98,12 @@ const update=async(data)=>{
   });
 }
     
+  const existance =(element,pisa)=>{
+    TrialData.forEach(arr => {
+      if(arr.Name===element)console.log(element,": active");
+      
+    });
+  }
 
   return (
     <div>
@@ -104,8 +112,8 @@ const update=async(data)=>{
         <div className="ledger-box col-md-6 col-12">
         <div className='row col-12'>
         {
-          unique.map((element,index)=>(
-              <div className="col-md-6 col-12 name-box" key={index}>
+          uniquenames.map((element,index)=>(
+              <div className="col-md-6 col-12 name-box" key={index} onClick={()=>{existance(element)}}>
                 <div className={element!==LedgerName?"name-l row":"name-l row l-bor"} onClick={()=>{
                     
                     if(LedgerName!==element){
@@ -121,13 +129,13 @@ const update=async(data)=>{
                   <h4 className=' col-10'>{element}</h4>
                   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" style={{padding:"0px"}} className=" col-2 bi bi-arrow-right-circle-fill" viewBox="0 0 16 16" onClick={()=>{
                     
-                    if(LedgerName!==element){
+                    if(LedgerName!==element.Name){
                       setnormal([])
                       setDrSum(0)
                       setCrSum(0)
                       setDiff(0)
                       setstate("")
-                      setLedgerName(element);
+                      setLedgerName(element.Name);
                       setOnOff(false)
                     }
                   }}>

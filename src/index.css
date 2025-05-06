@@ -11,6 +11,9 @@ body {
   margin: 0;
   padding: 0;
   max-height: 100vh;
-  background: black;
   color: rgba(233, 221, 221, 0.87);
+  background-image: url(/src/assets/Login5.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }

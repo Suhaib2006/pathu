@@ -106,7 +106,7 @@ const update=async(data)=>{
   }
 
   return (
-    <div>
+    <div className=''>
       <Bar  Username="" Active="true" Name={NameData} Ledgerzero={LedgerData} user={user} Trial={TrialData} />
       <div className="row col-12">
         <div className="ledger-box col-md-6 col-12">
@@ -126,8 +126,8 @@ const update=async(data)=>{
                       setOnOff(false)
                     }
                   }}>
-                  <h4 className=' col-10'>{element}</h4>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" style={{padding:"0px"}} className=" col-2 bi bi-arrow-right-circle-fill" viewBox="0 0 16 16" onClick={()=>{
+                  <h4 className="col-10">{element}</h4>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" style={{padding:"0px"}} className={element!==LedgerName?" forword-btn col-2 bi bi-arrow-right-circle-fill":" forword-btn-active col-2 bi bi-arrow-right-circle-fill"} viewBox="0 0 16 16" onClick={()=>{
                     
                     if(LedgerName!==element.Name){
                       setnormal([])
@@ -149,8 +149,8 @@ const update=async(data)=>{
         </div>
         <div className="ledger-box col-12 col-md-6" style={{overflow:"hidden"}} >
           <div className=" row">
-            <h3 className='led-name col-7'>{LedgerName}</h3>
-            <div className="col-5 box-balance"><h4 className='mt-2'>{Diff} {state} </h4></div>
+            <h4 className='led-name col-7'>{LedgerName}</h4>
+            <div className="col-5 box-balance"><h5 className='mt-2'>{Diff} {state} </h5></div>
           </div>
           <div className="row mt-4 single-ledger">
             <div className="col-1"><h4>NO</h4></div>
@@ -163,21 +163,20 @@ const update=async(data)=>{
                 normal.map(item=>(
                   <div className="row mt-2" onClick={()=>{console.log(item.id);
                   }}>
-                    <div className="col-1"><h4></h4></div>
-                    <div className="col-5"><h4>{item.Codeid}</h4></div>
-                    <div className="col-3"><h4>{item.Entry=="DR"?item.Amount:""}</h4></div>
-                    <div className="col-3"><h4>{item.Entry=="CR"?item.Amount:""}</h4></div>
+                    <div className="col-1"><h5></h5></div>
+                    <div className="col-5"><h5>{item.Codeid}</h5></div>
+                    <div className="col-3"><h5>{item.Entry=="DR"?item.Amount:""}</h5></div>
+                    <div className="col-3"><h5>{item.Entry=="CR"?item.Amount:""}</h5></div>
                   </div>
                 ))
             }
-            <div className="row mt-4 single-ledger">
-              <div className="col-6"><h4>TOTAL</h4></div>
-              <div className="col-3"><h4>{DrSum}</h4></div>
-              <div className="col-3"><h4>{CrSum}</h4></div>
-            </div>
           </div>
-
-          <button className="navbtn col-12 " onClick={AddTrialData} onKeyDown={(e) =>{ if(e.key === "Enter") AddTrialData()}}><h3 className='mt-1'><b>{!OnOff?"ADD DATA":"UPDATE DATA"}</b></h3> </button>
+          <div className="row mt-2 single-ledger">
+              <div className="col-6"><h4>TOTAL</h4></div>
+              <div className="col-3"><h5>{DrSum}</h5></div>
+              <div className="col-3"><h5>{CrSum}</h5></div>
+            </div>
+          <button className="datauploding col-12 mt-2" onClick={AddTrialData} onKeyDown={(e) =>{ if(e.key === "Enter") AddTrialData()}}><h4 ><b>{!OnOff?"ADD DATA":"UPDATE DATA"}</b></h4> </button>
         </div>
       </div>
     </div>

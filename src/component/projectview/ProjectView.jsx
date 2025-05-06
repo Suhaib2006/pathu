@@ -208,7 +208,7 @@ function ProjectView() {
     alert(JournalEntry.id)
   }
   return (
-    <div className='project-all-data-on'>
+    <div className='project-all-data-on img-home'>
         <div className='col-12 project-bar'>
            <Bar  Username="" Active="true" user={Email} Name={Projectname} Ledgerzero={Ledger} Trial={TrialData} />
         </div>
@@ -283,7 +283,7 @@ function ProjectView() {
              {
                
                 Entry.map((val,index)=>(
-                  <div style={{borderBottom: "3px dotted orange",position:"relative"}} key={val.id}>
+                  <div style={{borderBottom: "3px dotted #2c4b40",position:"relative"}} key={val.id}>
                     
                     {
                       val.map((elem,index)=>(
@@ -319,10 +319,10 @@ function ProjectView() {
                 ))
               }
             </div>:
-            <div className="col-md-6 col-12 journal journal-view"> 
-              <h4 className='project-hld mb-2' style={{color:"white"}}>Hello  <label style={{color:"orange"}}>{Email}</label></h4>
-              <h4 className='project-hld mb-2' style={{color:"gold"}}>Wellcome to your</h4>
-              <h4 className='project-hld mb-2'>  <label style={{color:"orange"}}>{Projectname}</label> project</h4>
+            <div className="col-md-6 col-12 journal journal-view " style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}> 
+              <h1 className=' mb-2' style={{color:"#2c4b40"}}>Hello  <label style={{color:"white"}}>{Email}</label></h1>
+              <h1 className=' mb-2' style={{color:"#2c4b40"}}>Wellcome to your</h1>
+              <h1 className=' mb-2' style={{color:"#2c4b40"}}>  <label style={{color:"White"}}>{Projectname}</label > project</h1>
             </div>
             }
           

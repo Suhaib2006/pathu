@@ -8,17 +8,29 @@ function NavBtn({Ledgerone,Name,user,Trial}) {
   },[])
   const navigate=useNavigate()
   return (
-    <div className='row col-12 justify-content-evenly'>
-        <button className="navbtn col-4" disabled={loc==="journal"?true:false} onClick={()=>{
+    <div className='row col-12 justify-content-evenly '>
+        <div className=" col-2 navbtn" disabled={loc==="journal"?true:false} onClick={()=>{
             localStorage.setItem("valueA","journal")
             navigate('/projectview',{state:{Projectname:Name,Email:user,Trial:Trial}})
-        }}><h3>Journal</h3> </button>
-        <button className="navbtn col-3" disabled={loc==="ledger"?true:false} onClick={()=>{
+        }}><h4>Journal</h4> </div>
+        <div className="navbtn col-2" disabled={loc==="ledger"?true:false} onClick={()=>{
             navigate('/Ledger',{state:{LedgerData:Ledgerone,NameData:Name,user:user}})
-          }}><h3>Ledger</h3> </button>
-        <button className="navbtn col-3" disabled={loc==="TrialBalance"?true:false} onClick={()=>{
+          }}><h4>Ledger</h4> </div>
+        <div className="navbtn col-2" disabled={loc==="TrialBalance"?true:false} onClick={()=>{
          navigate('/TrialBalance',{state:{LedgerData:Ledgerone,NameData:Name,user:user,Trial:Trial}})
-        }}><h3>Trial</h3></button>
+        }}>
+          <h4>Trial</h4>
+        </div>
+        <div className="navbtn col-2" onClick={()=>{
+          navigate('/TrialBalance',{state:{LedgerData:Ledgerone,NameData:Name,user:user,Trial:Trial}})
+         }}>
+          <h4>Payroll</h4>
+        </div>
+        <div className="navbtn col-2" disabled={loc==="TrialBalance"?true:false} onClick={()=>{
+         navigate('/TrialBalance',{state:{LedgerData:Ledgerone,NameData:Name,user:user,Trial:Trial}})
+        }}>
+          <h4>Stock</h4>
+        </div>
     </div>
   )
 }

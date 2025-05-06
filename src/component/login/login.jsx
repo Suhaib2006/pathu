@@ -14,14 +14,7 @@ function Login() {
   const [email,setemail]=useState('')
   const [password,setpassword]=useState('')
   const [emsg,setemsg]=useState('')
-  const toggelactive=()=>{
-    setactive(!active)
-    if(!active){
-      navigate('/reg')
-    }else{
-      navigate('/')
-    }
-  }
+  const toggelactive=()=>navigate('/reg')
 
   const UserLogin = async()=>{
     try{
@@ -46,15 +39,22 @@ function Login() {
     
   }
   return (
-    <div className='row'>
-        <div className="col-12 col-md-7 real-view">
-          <div className="icon-user ">
+    <div className='row img-all'>
+        <div className="col-12 col-md-6 real-view">
+          <h1>Wellcom Back!</h1>
+          <h4>To keep connected with us please <br /> login with personal info</h4>
+          <button type="button" className="login-btn col-6 mt-3" onClick={toggelactive}>
+            <h5>SING IN</h5>
+          </button>
+        </div>
+        <div className="col-12 col-md-5 img-bg">
+        <div className="icon-user ">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
               <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
             </svg>
           </div>
-          <div className="login-name mt-3">
+          <div className="login-name mt-3 ms-2">
             <h2>Sing Up</h2>
           </div>
           <div className="mt-3">
@@ -84,19 +84,10 @@ function Login() {
               <label className="erorr-msg mt-2 ms-1">{emsg}</label>
             </div>
             <div >
-              <button type="button" className="login-btn" onClick={UserLogin}>
+              <button type="button" className="login-btn col-11" onClick={UserLogin}>
                 <h5>LOGIN</h5>
               </button>
-            </div>
-          </div>
-        </div>
-        <div className="col-12 col-md-5 img-bg">
-          <div className='move mt-5'>
-            <div className="b-box ">
-              <h5 className={!active?"name-label active":"name-label "} onClick={toggelactive}>Login</h5>
-            </div>
-            <div className="b-box">
-              <h5 className={active?"name-label active ":"name-label "} onClick={toggelactive}>Sing In</h5>
+              <h5 style={{width:"80%",marginTop:"10px"}}>Don't have an account? <a onClick={toggelactive}>Sign up</a></h5>
             </div>
           </div>
         </div>

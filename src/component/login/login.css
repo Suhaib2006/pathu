@@ -1,12 +1,21 @@
+.img-all{
+  background-image: url(/src/assets/Login5.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 .img-bg{
-    margin-right: 0px;
-    background-image: url(/src//assets/e5bb2a5b22c301d7efd07a4c6d71ffbf.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
-    border-left:3px solid white ;
-    border-top-left-radius: 10%;
-    border-bottom-left-radius: 10%;
+    margin-top: 5vh;
+    height: 90vh;
+    border: 3px solid white;
+    border-radius: 10%;
+    margin-bottom: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-x: hidden;
+    background: #5e796f;
 }
 .real-view{
     display: flex;
@@ -14,15 +23,15 @@
     align-items: center;
     flex-direction: column;
     overflow: hidden;
+    color: black;
 }
 .icon-user{
-    margin-left: -40px;
-    color: orange;
+    color: white;
     height: 60px;
     width: 60px;
 }
 .label{
-    width: 90%;
+    width: 95%;
     display: flex;
     margin-left: 5px;
     justify-content: space-between;
@@ -34,24 +43,25 @@
     font-style: normal;
     font-variant: small-caps;
     letter-spacing: 1px;
+    
   }
   .input-area{
-    width: 90%;
+    width: 95%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
   }
   .input-area h4{
-    width: 90%;
+    width: 95%;
     font-size: 20px;
     text-align: start;
     font-family: "Iansui", cursive;
   }
   .inp{
-    width: 90%;
+    width: 95%;
     height:45px ;
-    background:transparent;
+    background: transparent;
     padding-left: 10px;
     font-size: 21px;
     border-radius: 10px;
@@ -65,7 +75,7 @@
     outline: none;
   }
   .forgot{
-    width: 90%;
+    width: 95%;
     margin-left: 20px;
     text-align: start;
   }
@@ -73,61 +83,29 @@
     color: rgb(44, 77, 147);
   }
   .icon-m,.icon-p{
-    color: orange;
+    color: white;
     margin-right: 5px;
   }
   .erorr-messa{
     height: 40px;
     margin-left: 18px;
-    width: 90%;
+    width: 95%;
     overflow-x: scroll;
     overflow-y: hidden;
     
   }
   .login-btn{
-    width: 80%;
     height: 40px;
-    background:orange;
-    border-radius: 10px;
     color: black;
+    border-radius: 10px;
     font-weight: 800;
     font-family: "Iansui", cursive;
     place-items: center;
-    margin-left: -10%;
+    margin-left: -5%;
   }
-  .move{
-    margin-left: -15px;
-    margin-top:15% !important;
-  }
-  .name-label{
-    font-family: "Iansui", cursive;
-    text-align: start;
-    font-size: 20px;
-    font-weight: 600;
-    padding-left: 20px;
-    cursor: pointer;
-  }
-  .b-box{
-    height: 50px;
-    width: 150px;
-    display: flex;
-    align-items: center;
-  }
-  .active{
-    height: 50px;
-    width: 130px;
-    background: black;
-    color: orange;
-    display: flex;
-    align-items: center;
-    border: 2px solid white;
-    border-left: none;
-    overflow: hidden;
-    border-bottom-right-radius: 20px;
-    border-top-right-radius: 20px;
-  }
+  
   .erorr-msg{
     color:red;
     text-align:start; 
-    width:100%;
+    width:95%;
   }
